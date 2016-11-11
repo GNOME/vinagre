@@ -583,7 +583,7 @@ handle_login (GtkWindow *parent,
 	      g_set_error_literal (error,
 				   VINAGRE_SSH_ERROR,
 				   VINAGRE_SSH_ERROR_IO_ERROR,
-				   _("Can't send host identity confirmation"));
+				   _("Can’t send host identity confirmation"));
 	      ret_val = FALSE;
 	      break;
 	    }

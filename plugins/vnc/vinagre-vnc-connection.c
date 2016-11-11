@@ -314,7 +314,7 @@ vnc_fill_conn_from_file (VinagreConnection *conn, GKeyFile *file)
       vinagre_vnc_connection_set_shared (VINAGRE_VNC_CONNECTION (conn), shared);
     else
       /* Translators: 'shared' here is a VNC protocol specific flag. You can translate it, but I think it's better to let it untranslated */
-      g_message (_("Bad value for 'shared' flag: %d. It is supposed to be 0 or 1. Ignoring it."), shared);
+      g_message (_("Bad value for “shared” flag: %d. It is supposed to be 0 or 1. Ignoring it."), shared);
 }
 
 static void

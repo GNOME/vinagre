@@ -85,7 +85,7 @@ show_dialog_folder (VinagreBookmarks      *book,
 						      name);
       if (existing_entry && existing_entry != entry)
 	{
-	  gchar *str = g_strdup_printf (_("The name \"%s\" is already used in this folder. Please use a different name."), name);
+	  gchar *str = g_strdup_printf (_("The name “%s” is already used in this folder. Please use a different name."), name);
 	  vinagre_utils_show_error_dialog (_("Invalid name for this item"),
 				    str,
 				    GTK_WINDOW (dialog));
@@ -197,7 +197,7 @@ show_dialog_conn (VinagreBookmarks      *book,
 						      name);
       if (existing_entry && existing_entry != entry)
 	{
-	  str = g_strdup_printf (_("The name \"%s\" is already used in this folder. Please use a different name."), name);
+	  str = g_strdup_printf (_("The name “%s” is already used in this folder. Please use a different name."), name);
 	  vinagre_utils_show_error_dialog (_("Invalid name for this item"),
 				    str,
 				    GTK_WINDOW (dialog));

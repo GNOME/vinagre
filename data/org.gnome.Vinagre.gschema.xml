@@ -9,12 +9,12 @@
     <key type="b" name="always-show-tabs">
       <default>false</default>
       <summary>Whether we should show tabs even when there is only one active connection</summary>
-      <description>Set to "true" to always show the tabs. Set to "false" to only show the tabs when there is more than one active connection.</description>
+      <description>Set to “true” to always show the tabs. Set to “false” to only show the tabs when there is more than one active connection.</description>
     </key>
     <key type="b" name="show-accels">
       <default>false</default>
       <summary>Whether we should show the menu accelerators (shortcut keys)</summary>
-      <description>Set to "false" to disable menu shortcuts. Set to "true" to enable them. Note that if they are enabled, those keys will be intercepted by the menu and will not be sent to the remote host.</description>
+      <description>Set to “false” to disable menu shortcuts. Set to “true” to enable them. Note that if they are enabled, those keys will be intercepted by the menu and will not be sent to the remote host.</description>
     </key>
     <key type="i" name="history-size">
       <default>15</default>
@@ -25,7 +25,7 @@
     <key type="b" name="always-enable-listening">
       <default>false</default>
       <summary>Whether we should start the program listening for reverse connections</summary>
-      <description>Set to "true" to always start the program listening for reverse connections.</description>
+      <description>Set to “true” to always start the program listening for reverse connections.</description>
     </key>
   </schema>
 </schemalist>

@@ -152,14 +152,14 @@ impl_new_connection_from_file (VinagreProtocol *plugin,
   if (!g_key_file_has_group (file, "Connection"))
     {
       /* Translators: Do not translate "Connection". It's the name of a group in the .vnc (.ini like) file. */
-      *error_msg = g_strdup (_("The file is not a VNC one: Missing the group \"Connection\"."));
+      *error_msg = g_strdup (_("The file is not a VNC one: Missing the group “Connection”."));
       goto the_end;
     }
 
   if (!g_key_file_has_key (file, "Connection", "Host", NULL))
     {
       /* Translators: Do not translate "Host". It's the name of a key in the .vnc (.ini like) file. */
-      *error_msg = g_strdup (_("The file is not a VNC one: Missing the key \"Host\"."));
+      *error_msg = g_strdup (_("The file is not a VNC one: Missing the key “Host”."));
       goto the_end;
     }
 
@@ -198,7 +198,7 @@ impl_new_connection_from_file (VinagreProtocol *plugin,
 	vinagre_vnc_connection_set_shared (VINAGRE_VNC_CONNECTION (conn), shared);
       else
         /* Translators: 'shared' here is a VNC protocol specific flag. You can translate it, but I think it's better to let it untranslated */
-	g_message (_("Bad value for 'shared' flag: %d. It is supposed to be 0 or 1. Ignoring it."), shared);
+	g_message (_("Bad value for “shared” flag: %d. It is supposed to be 0 or 1. Ignoring it."), shared);
     }
 
 the_end:

@@ -88,7 +88,7 @@ get_option_context (void)
   GHashTableIter iter;
 
   /* Setup command line options */
-  context = g_option_context_new (_("- Remote Desktop Viewer"));
+  context = g_option_context_new (_("— Remote Desktop Viewer"));
   g_option_context_set_help_enabled (context, FALSE);
   g_option_context_add_main_entries (context, all_options, GETTEXT_PACKAGE);
   g_option_context_set_translation_domain (context, GETTEXT_PACKAGE);
