@@ -294,13 +294,18 @@ recent_manager_changed (GtkRecentManager *manager,
 static void
 show_hide_accels (VinagreWindow *window)
 {
+  static gchar* menu_accel_default;
   gboolean show_accels;
+
+  if (!menu_accel_default)
+    g_object_get (gtk_settings_get_default (), "gtk-menu-bar-accel", &menu_accel_default, NULL);
 
   show_accels = g_settings_get_boolean (vinagre_prefs_get_default_gsettings (), "show-accels");
 
   g_object_set (gtk_settings_get_default (),
 		"gtk-enable-accels", show_accels,
 		"gtk-enable-mnemonics", show_accels,
+                "gtk-menu-bar-accel", show_accels ? menu_accel_default : NULL,
 		NULL);
 }
 
