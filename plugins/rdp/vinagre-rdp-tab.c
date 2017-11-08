@@ -1218,7 +1218,7 @@ open_freerdp (VinagreRdpTab *rdp_tab)
           init_freerdp (rdp_tab);
         }
     }
-  while (!success && authentication_errors < 3);
+  while (!success && !cancelled && authentication_errors < 3);
 
   if (!success)
     {
