@@ -58,16 +58,15 @@ AS_IF([test "x$have_ssh" = "xyes"],
 AM_CONDITIONAL([VINAGRE_ENABLE_SSH], [test "x$have_ssh" = "xyes"])
 
 # Whether to enable support for RDP.
-RDP_DEPS="freerdp x11"
+RDP_DEPS="freerdp2 x11"
+
 AC_ARG_ENABLE([rdp],
   [AS_HELP_STRING([--disable-rdp],
     [Disable Remote Desktop Protocol (RDP) support])])
 
 AS_IF([test "x$enable_rdp" != "xno"],
   [PKG_CHECK_EXISTS([$RDP_DEPS],
-    [have_rdp=yes
-     PKG_CHECK_EXISTS(freerdp >= 1.1,
-       [AC_DEFINE([HAVE_FREERDP_1_1], [1], [FreeRDP is of version 1.1 or newer])], [])],
+    [have_rdp=yes],
     [have_rdp=no])],
   [have_rdp=no])
 
