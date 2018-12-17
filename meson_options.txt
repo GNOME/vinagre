@@ -1,0 +1,5 @@
+option('avahi', type: 'feature', value: 'auto', description: 'build with Avahi support')
+option('rdp', type: 'feature', value: 'auto', description: 'build with RDP support')
+option('ssh', type: 'feature', value: 'auto', description: 'build with SSH support')
+option('spice', type: 'feature', value: 'auto', description: 'build with Spice support')
+option('telepathy', type: 'feature', value: 'auto', description: 'build with telepathy support')
