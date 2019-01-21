@@ -10,11 +10,12 @@ foreach desktop: desktops
     configuration: {'VERSION': meson.project_version()},
   )
 
-  custom_target(
+  i18n.merge_file(
     desktop,
+    type: 'desktop',
     input: desktop_in,
     output: '@BASENAME@',
-    command: intltool_desktop_cmd,
+    po_dir: po_dir,
     install: true,
     install_dir: vinagre_datadir / 'applications',
   )
@@ -22,11 +23,11 @@ endforeach
 
 appdata = 'vinagre.appdata.xml'
 
-custom_target(
+i18n.merge_file(
   appdata,
   input: appdata + '.in',
   output: '@BASENAME@',
-  command: intltool_xml_cmd,
+  po_dir: po_dir,
   install: true,
   install_dir: vinagre_datadir / 'metainfo',
 )
@@ -56,11 +57,12 @@ install_man('vinagre.1')
 if have_telepathy
   mimedata = 'vinagre-mime.xml'
 
-  custom_target(
+  i18n.merge_file(
     mimedata,
     input: mimedata + '.in',
     output: '@BASENAME@',
-    command: intltool_xml_cmd,
+    po_dir: po_dir,
+    data_dirs: its_dir,
     install: true,
     install_dir: vinagre_datadir / 'mime/packages',
   )

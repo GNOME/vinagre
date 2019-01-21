@@ -1,14 +1,17 @@
 # List of source files containing translatable strings.
-
+# Please keep this file sorted alphabetically.
 data/org.gnome.Vinagre.gschema.xml
 data/vinagre.appdata.xml.in
 data/vinagre.desktop.in.in
 data/vinagre-file.desktop.in.in
-[type: gettext/glade]data/vinagre.ui
 data/vinagre-mime.xml.in
+data/vinagre.ui
 data/vinagre-ui.xml
 plugins/rdp/vinagre-rdp-plugin.c
 plugins/rdp/vinagre-rdp-tab.c
+plugins/spice/vinagre-spice-plugin.c
+plugins/spice/vinagre-spice-tab.c
+plugins/spice/vinagre-spice-tunnel.c
 plugins/ssh/vinagre-ssh-connection.c
 plugins/ssh/vinagre-ssh-plugin.c
 plugins/ssh/vinagre-ssh-tab.c
@@ -16,9 +19,6 @@ plugins/vnc/vinagre-vnc-connection.c
 plugins/vnc/vinagre-vnc-plugin.c
 plugins/vnc/vinagre-vnc-tab.c
 plugins/vnc/vinagre-vnc-tunnel.c
-plugins/spice/vinagre-spice-plugin.c
-plugins/spice/vinagre-spice-tab.c
-plugins/spice/vinagre-spice-tunnel.c
 vinagre/vinagre-bookmarks.c
 vinagre/vinagre-bookmarks-migration.c
 vinagre/vinagre-bookmarks-tree.c
@@ -32,8 +32,8 @@ vinagre/vinagre-mdns.c
 vinagre/vinagre-notebook.c
 vinagre/vinagre-options.c
 vinagre/vinagre-prefs.c
-vinagre/vinagre-reverse-vnc-listener-dialog.c
 vinagre/vinagre-reverse-vnc-listener.c
+vinagre/vinagre-reverse-vnc-listener-dialog.c
 vinagre/vinagre-ssh.c
 vinagre/vinagre-tab.c
 vinagre/vinagre-tube-handler.c
