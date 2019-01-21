@@ -1,8 +1,10 @@
 [Desktop Entry]
-_Name=Remote Desktop Viewer
-_Comment=Access remote desktops
-_Keywords=VNC;RDP;SSH;
+Name=Remote Desktop Viewer
+Comment=Access remote desktops
+# Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+Keywords=VNC;RDP;SSH;
 Exec=vinagre %U
+# Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 Icon=preferences-desktop-remote-desktop
 Terminal=false
 MimeType=application/x-remote-connection;x-scheme-handler/vnc;

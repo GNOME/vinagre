@@ -1,7 +1,8 @@
 [Desktop Entry]
-_Name=Remote Desktop Viewer
-_Comment=Access remote desktops
+Name=Remote Desktop Viewer
+Comment=Access remote desktops
 Exec=vinagre -F %U
+# Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 Icon=preferences-desktop-remote-desktop
 Terminal=false
 Type=Application
