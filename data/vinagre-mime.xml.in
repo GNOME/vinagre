@@ -2,10 +2,10 @@
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
 	<mime-type type="application/x-vnc">
 		<sub-class-of type="text/plain"/>
-		<_comment>Remote Desktop (VNC) file</_comment>
+		<comment>Remote Desktop (VNC) file</comment>
 		<glob pattern="*.vnc"/>
 	</mime-type>
 	<mime-type type="application/x-remote-connection">
-		<_comment>Remote Desktop Connection</_comment>
+		<comment>Remote Desktop Connection</comment>
 	</mime-type>
 </mime-info>

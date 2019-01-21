@@ -24,13 +24,9 @@ i18n = import('i18n')
 
 source_root = meson.current_source_dir()
 
+its_dir = source_root / 'gettext'
 po_dir = source_root / 'po'
 vapi_dir = source_root / 'vinagre/vapi'
-
-intltool_merge = find_program('intltool-merge')
-intltool_cache = join_paths(po_dir, '.intltool-merge-cache')
-intltool_desktop_cmd = [intltool_merge, '-d', '-u', '-c', intltool_cache, po_dir, '@INPUT@', '@OUTPUT@']
-intltool_xml_cmd = [intltool_merge, '-x', '-u', '-c', intltool_cache, po_dir, '@INPUT@', '@OUTPUT@']
 
 top_inc = include_directories('.')
 
