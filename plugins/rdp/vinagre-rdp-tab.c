@@ -465,16 +465,18 @@ frdp_drawing_area_draw (GtkWidget *area,
   return TRUE;
 }
 
-static void
+static BOOL
 frdp_begin_paint (rdpContext *context)
 {
   rdpGdi *gdi = context->gdi;
 
   gdi->primary->hdc->hwnd->invalid->null = 1;
   gdi->primary->hdc->hwnd->ninvalid = 0;
+
+  return TRUE;
 }
 
-static void
+static BOOL
 frdp_end_paint (rdpContext *context)
 {
   VinagreRdpTab        *rdp_tab = ((frdpContext *) context)->rdp_tab;
@@ -484,7 +486,7 @@ frdp_end_paint (rdpContext *context)
   gint                  x, y, w, h;
 
   if (gdi->primary->hdc->hwnd->invalid->null)
-    return;
+    return TRUE;
 
   x = gdi->primary->hdc->hwnd->invalid->x;
   y = gdi->primary->hdc->hwnd->invalid->y;
@@ -506,6 +508,8 @@ frdp_end_paint (rdpContext *context)
     {
       gtk_widget_queue_draw_area (priv->display, x, y, w, h);
     }
+
+  return TRUE;
 }
 
 static BOOL
@@ -549,7 +553,7 @@ frdp_post_connect (freerdp *instance)
   rdpGdi               *gdi;
   int                   stride;
 
-  gdi_init (instance, CLRBUF_32BPP, NULL);
+  gdi_init (instance, PIXEL_FORMAT_BGRA32);
   gdi = instance->context->gdi;
 
   instance->update->BeginPaint = frdp_begin_paint;
@@ -882,11 +886,13 @@ frdp_authenticate (freerdp  *instance,
   return TRUE;
 }
 
-static BOOL
+static DWORD
 frdp_certificate_verify (freerdp *instance,
-                         char    *subject,
-                         char    *issuer,
-                         char    *fingerprint)
+                         const char *common_name,
+                         const char *subject,
+                         const char *issuer,
+                         const char *fingerprint,
+                         BOOL host_mismatch)
 {
   VinagreTab *tab = VINAGRE_TAB (((frdpContext *) instance->context)->rdp_tab);
   GtkBuilder *builder;
@@ -911,21 +917,24 @@ frdp_certificate_verify (freerdp *instance,
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_fingerprint"));
   gtk_label_set_text (GTK_LABEL (widget), fingerprint);
 
+  /* FIXME: Pass host_mismatch to user. */
 
   response = gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_hide (dialog);
 
-
-  return response == GTK_RESPONSE_YES;
+  return (response == GTK_RESPONSE_YES) ? 1 : 0;
 }
 
 
-static BOOL
+static DWORD
 frdp_changed_certificate_verify (freerdp *instance,
-                                 char    *subject,
-                                 char    *issuer,
-                                 char    *new_fingerprint,
-                                 char    *old_fingerprint)
+                                 const char *common_name,
+                                 const char *subject,
+                                 const char *issuer,
+                                 const char *new_fingerprint,
+                                 const char *old_subject,
+                                 const char *old_issuer,
+                                 const char *old_fingerprint)
 {
   VinagreTab *tab = VINAGRE_TAB (((frdpContext *) instance->context)->rdp_tab);
   GtkBuilder *builder;
@@ -965,12 +974,12 @@ frdp_changed_certificate_verify (freerdp *instance,
       gtk_widget_hide (label);
     }
 
+  /* FIXME: Pass old_subject and old_issuer to user. */
 
   response = gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_hide (dialog);
 
-
-  return response == GTK_RESPONSE_YES;
+  return (response == GTK_RESPONSE_YES) ? 1 : 0;
 }
 
 static void
