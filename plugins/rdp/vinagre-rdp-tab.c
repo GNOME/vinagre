@@ -29,12 +29,7 @@
 #include <freerdp/types.h>
 #include <freerdp/freerdp.h>
 #include <freerdp/gdi/gdi.h>
-#if HAVE_FREERDP_1_1
 #include <freerdp/locale/keyboard.h>
-#else
-#include <freerdp/kbd/vkcodes.h>
-#include <gdk/gdkx.h>
-#endif
 
 #include "vinagre-rdp-tab.h"
 #include "vinagre-rdp-connection.h"
@@ -43,12 +38,6 @@
 #define VINAGRE_RDP_TAB_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), VINAGRE_TYPE_RDP_TAB, VinagreRdpTabPrivate))
 
 #define SELECT_TIMEOUT 50
-
-#if !HAVE_FREERDP_1_1
-typedef boolean BOOL;
-typedef uint8   UINT8;
-typedef uint16  UINT16;
-#endif
 
 struct _VinagreRdpTabPrivate
 {
@@ -524,7 +513,6 @@ frdp_pre_connect (freerdp *instance)
 {
   rdpSettings *settings = instance->settings;
 
-#if HAVE_FREERDP_1_1
   settings->OrderSupport[NEG_DSTBLT_INDEX] = TRUE;
   settings->OrderSupport[NEG_PATBLT_INDEX] = TRUE;
   settings->OrderSupport[NEG_SCRBLT_INDEX] = TRUE;
@@ -549,32 +537,6 @@ frdp_pre_connect (freerdp *instance)
   settings->OrderSupport[NEG_POLYGON_CB_INDEX] = FALSE;
   settings->OrderSupport[NEG_ELLIPSE_SC_INDEX] = FALSE;
   settings->OrderSupport[NEG_ELLIPSE_CB_INDEX] = FALSE;
-#else
-  settings->order_support[NEG_DSTBLT_INDEX] = true;
-  settings->order_support[NEG_PATBLT_INDEX] = true;
-  settings->order_support[NEG_SCRBLT_INDEX] = true;
-  settings->order_support[NEG_OPAQUE_RECT_INDEX] = true;
-  settings->order_support[NEG_DRAWNINEGRID_INDEX] = false;
-  settings->order_support[NEG_MULTIDSTBLT_INDEX] = false;
-  settings->order_support[NEG_MULTIPATBLT_INDEX] = false;
-  settings->order_support[NEG_MULTISCRBLT_INDEX] = false;
-  settings->order_support[NEG_MULTIOPAQUERECT_INDEX] = true;
-  settings->order_support[NEG_MULTI_DRAWNINEGRID_INDEX] = false;
-  settings->order_support[NEG_LINETO_INDEX] = true;
-  settings->order_support[NEG_POLYLINE_INDEX] = true;
-  settings->order_support[NEG_MEMBLT_INDEX] = true;
-  settings->order_support[NEG_MEM3BLT_INDEX] = false;
-  settings->order_support[NEG_MEMBLT_V2_INDEX] = true;
-  settings->order_support[NEG_MEM3BLT_V2_INDEX] = false;
-  settings->order_support[NEG_SAVEBITMAP_INDEX] = false;
-  settings->order_support[NEG_GLYPH_INDEX_INDEX] = true;
-  settings->order_support[NEG_FAST_INDEX_INDEX] = true;
-  settings->order_support[NEG_FAST_GLYPH_INDEX] = false;
-  settings->order_support[NEG_POLYGON_SC_INDEX] = false;
-  settings->order_support[NEG_POLYGON_CB_INDEX] = false;
-  settings->order_support[NEG_ELLIPSE_SC_INDEX] = false;
-  settings->order_support[NEG_ELLIPSE_CB_INDEX] = false;
-#endif
 
   return TRUE;
 }
@@ -587,15 +549,7 @@ frdp_post_connect (freerdp *instance)
   rdpGdi               *gdi;
   int                   stride;
 
-  gdi_init (instance,
-#if defined(FREERDP_VERSION_MAJOR) && defined(FREERDP_VERSION_MINOR) && \
-    !(FREERDP_VERSION_MAJOR > 1 || (FREERDP_VERSION_MAJOR == 1 && \
-    FREERDP_VERSION_MINOR >= 2))
-                    CLRBUF_24BPP,
-#else
-                    CLRBUF_32BPP,
-#endif
-                    NULL);
+  gdi_init (instance, CLRBUF_32BPP, NULL);
   gdi = instance->context->gdi;
 
   instance->update->BeginPaint = frdp_begin_paint;
@@ -705,21 +659,15 @@ frdp_key_pressed (GtkWidget   *widget,
   VinagreRdpTab        *rdp_tab = (VinagreRdpTab *) user_data;
   VinagreRdpTabPrivate *priv = rdp_tab->priv;
   frdpEventKey         *frdp_event;
-#if HAVE_FREERDP_1_1
   UINT16                scancode;
-#endif
 
   frdp_event = g_new0 (frdpEventKey, 1);
   frdp_event->type = FRDP_EVENT_TYPE_KEY;
   frdp_event->flags = event->type == GDK_KEY_PRESS ? KBD_FLAGS_DOWN : KBD_FLAGS_RELEASE;
 
-#if HAVE_FREERDP_1_1
   scancode = freerdp_keyboard_get_rdp_scancode_from_x11_keycode (event->hardware_keycode);
   frdp_event->code = RDP_SCANCODE_CODE(scancode);
   frdp_event->extended = RDP_SCANCODE_EXTENDED(scancode);
-#else
-  frdp_event->code = freerdp_kbd_get_scancode_by_keycode (event->hardware_keycode, &frdp_event->extended);
-#endif
 
   if (frdp_event->extended)
     frdp_event->flags |= KBD_FLAGS_EXTENDED;
@@ -972,7 +920,6 @@ frdp_certificate_verify (freerdp *instance,
 }
 
 
-#if HAVE_FREERDP_1_1
 static BOOL
 frdp_changed_certificate_verify (freerdp *instance,
                                  char    *subject,
@@ -1025,7 +972,6 @@ frdp_changed_certificate_verify (freerdp *instance,
 
   return response == GTK_RESPONSE_YES;
 }
-#endif
 
 static void
 init_freerdp (VinagreRdpTab *rdp_tab)
@@ -1053,15 +999,8 @@ init_freerdp (VinagreRdpTab *rdp_tab)
   priv->freerdp_session->PostConnect = frdp_post_connect;
   priv->freerdp_session->Authenticate = frdp_authenticate;
   priv->freerdp_session->VerifyCertificate = frdp_certificate_verify;
-#if HAVE_FREERDP_1_1
   priv->freerdp_session->VerifyChangedCertificate = frdp_changed_certificate_verify;
-#endif
-
-#if HAVE_FREERDP_1_1
   priv->freerdp_session->ContextSize = sizeof (frdpContext);
-#else
-  priv->freerdp_session->context_size = sizeof (frdpContext);
-#endif
 
   freerdp_context_new (priv->freerdp_session);
   ((frdpContext *) priv->freerdp_session->context)->rdp_tab = rdp_tab;
@@ -1070,53 +1009,24 @@ init_freerdp (VinagreRdpTab *rdp_tab)
   settings = priv->freerdp_session->settings;
 
   /* Security settings */
-#if HAVE_FREERDP_1_1
   settings->RdpSecurity = TRUE;
   settings->TlsSecurity = TRUE;
   settings->NlaSecurity = TRUE;
   settings->EncryptionMethods = ENCRYPTION_METHOD_40BIT | ENCRYPTION_METHOD_128BIT | ENCRYPTION_METHOD_FIPS;
   settings->EncryptionLevel = ENCRYPTION_LEVEL_CLIENT_COMPATIBLE;
-#else
-  settings->rdp_security = true;
-  settings->tls_security = true;
-  settings->nla_security = true;
-  settings->encryption = true;
-  settings->encryption_method = ENCRYPTION_METHOD_40BIT | ENCRYPTION_METHOD_128BIT | ENCRYPTION_METHOD_FIPS;
-  settings->encryption_level = ENCRYPTION_LEVEL_CLIENT_COMPATIBLE;
-#endif
-#include <freerdp/version.h>
-#if (FREERDP_VERSION_MAJOR == 1 && FREERDP_VERSION_MINOR >= 2 && FREERDP_VERSION_REVISION >= 1) || (FREERDP_VERSION_MAJOR == 2)
   settings->UseRdpSecurityLayer = FALSE;
-#else
-  settings->DisableEncryption = FALSE;
-#endif
 
   /* Set display size */
-#if HAVE_FREERDP_1_1
   settings->DesktopWidth = width;
   settings->DesktopHeight = height;
-#else
-  settings->width = width;
-  settings->height = height;
-#endif
 
   /* Set hostname */
-#if HAVE_FREERDP_1_1
   settings->WindowTitle = g_strdup (hostname);
   settings->ServerHostname = g_strdup (hostname);
   settings->ServerPort = port;
-#else
-  settings->window_title = g_strdup (hostname);
-  settings->hostname = g_strdup (hostname);
-  settings->port = port;
-#endif
 
   /* Set keyboard layout */
-#if HAVE_FREERDP_1_1
   freerdp_keyboard_init (KBD_US);
-#else
-  freerdp_kbd_init (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), KBD_US);
-#endif
 
   /* Allow font smoothing by default */
   settings->AllowFontSmoothing = TRUE;

@@ -65,9 +65,7 @@ AC_ARG_ENABLE([rdp],
 
 AS_IF([test "x$enable_rdp" != "xno"],
   [PKG_CHECK_EXISTS([$RDP_DEPS],
-    [have_rdp=yes
-     PKG_CHECK_EXISTS(freerdp >= 1.1,
-       [AC_DEFINE([HAVE_FREERDP_1_1], [1], [FreeRDP is of version 1.1 or newer])], [])],
+    [have_rdp=yes],
     [have_rdp=no])],
   [have_rdp=no])
 
