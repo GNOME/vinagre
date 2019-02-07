@@ -940,7 +940,6 @@ frdp_changed_certificate_verify (freerdp *instance,
   GtkBuilder *builder;
   GtkWidget  *dialog;
   GtkWidget  *widget;
-  GtkWidget  *label;
   gint        response;
 
   builder = vinagre_utils_get_builder ();
@@ -951,30 +950,23 @@ frdp_changed_certificate_verify (freerdp *instance,
                           _("Connect"), GTK_RESPONSE_YES, NULL);
   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
-  widget = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_changed_subject"));
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_changed_new_subject"));
   gtk_label_set_text (GTK_LABEL (widget), subject);
 
-  widget = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_changed_issuer"));
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_changed_new_issuer"));
   gtk_label_set_text (GTK_LABEL (widget), issuer);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_changed_new_fingerprint"));
   gtk_label_set_text (GTK_LABEL (widget), new_fingerprint);
 
-  widget = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_changed_old_fingerprint"));
-  label = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_changed_old_fingerprint_label"));
-  if (old_fingerprint != NULL && old_fingerprint[0] != '\0')
-    {
-      gtk_label_set_text (GTK_LABEL (widget), old_fingerprint);
-      gtk_widget_show (widget);
-      gtk_widget_show (label);
-    }
-  else
-    {
-      gtk_widget_hide (widget);
-      gtk_widget_hide (label);
-    }
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_changed_old_subject"));
+  gtk_label_set_text (GTK_LABEL (widget), old_subject);
 
-  /* FIXME: Pass old_subject and old_issuer to user. */
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_changed_old_issuer"));
+  gtk_label_set_text (GTK_LABEL (widget), old_issuer);
+
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "certificate_changed_old_fingerprint"));
+  gtk_label_set_text (GTK_LABEL (widget), old_fingerprint);
 
   response = gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_hide (dialog);

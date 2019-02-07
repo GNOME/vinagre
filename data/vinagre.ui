@@ -885,7 +885,7 @@ Do you trust the new certificate?</property>
                 <property name="vexpand">True</property>
                 <property name="xalign">0</property>
                 <property name="xpad">12</property>
-                <property name="label" translatable="yes" comments="Subject of the certificate.">Subject:</property>
+                <property name="label" translatable="yes" comments="Subject of the certificate.">New subject:</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -901,7 +901,7 @@ Do you trust the new certificate?</property>
                 <property name="vexpand">True</property>
                 <property name="xalign">0</property>
                 <property name="xpad">12</property>
-                <property name="label" translatable="yes" comments="Issuer of the certificate.">Issuer:</property>
+                <property name="label" translatable="yes" comments="Issuer of the certificate.">New issuer:</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -927,7 +927,55 @@ Do you trust the new certificate?</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="certificate_changed_subject">
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="vexpand">True</property>
+                <property name="xalign">0</property>
+                <property name="xpad">12</property>
+                <property name="label" translatable="yes" comments="Subject of the old certificate.">Old subject:</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">3</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="vexpand">True</property>
+                <property name="xalign">0</property>
+                <property name="xpad">12</property>
+                <property name="label" translatable="yes" comments="Issuer of the old certificate.">Old issuer:</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="vexpand">True</property>
+                <property name="xalign">0</property>
+                <property name="xpad">12</property>
+                <property name="label" translatable="yes" comments="Fingerprint of the old certificate.">Old fingerprint:</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">5</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="certificate_changed_new_subject">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
@@ -942,7 +990,7 @@ Do you trust the new certificate?</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="certificate_changed_issuer">
+              <object class="GtkLabel" id="certificate_changed_new_issuer">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
@@ -972,17 +1020,29 @@ Do you trust the new certificate?</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="certificate_changed_old_fingerprint_label">
+              <object class="GtkLabel" id="certificate_changed_old_subject">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="xalign">0</property>
-                <property name="xpad">12</property>
-                <property name="label" translatable="yes" comments="Fingerprint of the old certificate.">Old fingerprint:</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
+                <property name="left_attach">1</property>
                 <property name="top_attach">3</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="certificate_changed_old_issuer">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">4</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
@@ -997,7 +1057,7 @@ Do you trust the new certificate?</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="top_attach">3</property>
+                <property name="top_attach">5</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
