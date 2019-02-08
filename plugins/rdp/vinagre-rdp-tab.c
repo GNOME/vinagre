@@ -46,6 +46,7 @@ struct _VinagreRdpTabPrivate
   cairo_surface_t *surface;
   GQueue          *events;
 
+  guint            intialized_id;
   guint            update_id;
   guint            button_press_handler_id;
   guint            button_release_handler_id;
@@ -181,6 +182,12 @@ vinagre_rdp_tab_dispose (GObject *object)
       g_clear_pointer (&priv->events, g_queue_free);
     }
 
+  if (priv->intialized_id > 0)
+    {
+      g_source_remove (rdp_tab->priv->intialized_id);
+      rdp_tab->priv->intialized_id = 0;
+    }
+
   if (priv->update_id > 0)
     {
       g_source_remove (rdp_tab->priv->update_id);
@@ -239,7 +246,7 @@ vinagre_rdp_tab_constructed (GObject *object)
   setup_toolbar (rdp_tab);
   open_freerdp (rdp_tab);
 
-  g_idle_add ((GSourceFunc) emit_delayed_signal, object);
+  rdp_tab->priv->intialized_id = g_idle_add ((GSourceFunc) emit_delayed_signal, object);
 }
 
 static void
