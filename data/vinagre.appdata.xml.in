@@ -6,12 +6,12 @@
   <project_license>GPL-2.0+</project_license>
 
   <!-- Both taken from the desktop file. -->
-  <_name>Remote Desktop Viewer</_name>
-  <_summary>Access remote desktops</_summary>
+  <name>Remote Desktop Viewer</name>
+  <summary>Access remote desktops</summary>
   <description>
-    <_p>Vinagre shows remote Windows, Mac OS X and Linux desktops.</_p>
-    <_p>It uses the VNC, RDP and SPICE protocols, and can even be used to
-        connect to SSH servers.</_p>
+    <p>Vinagre shows remote Windows, Mac OS X and Linux desktops.</p>
+    <p>It uses the VNC, RDP and SPICE protocols, and can even be used to
+        connect to SSH servers.</p>
   </description>
   <url type="homepage">https://wiki.gnome.org/Apps/Vinagre</url>
   <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=vinagre</url>
@@ -20,7 +20,7 @@
   <screenshots>
     <screenshot type="default">
       <image>http://amigadave.com/temp/vinagre-default.png</image>
-      <_caption><!-- Describe this screenshot in less than ~10 words --></_caption>
+      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
   </screenshots>
   <update_contact>amigadave@amigadave.com</update_contact>
